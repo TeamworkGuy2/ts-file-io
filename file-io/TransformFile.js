@@ -65,8 +65,7 @@ var TransformFile;
     function transformLines(fileName, lines, startMarker, endMarker, transformations) {
         startMarker = (startMarker == null ? "" : startMarker);
         endMarker = (endMarker == null ? "" : endMarker);
-        var origLines = lines;
-        var newLines = null;
+        var newLines = lines;
         var variableNames = Object.keys(transformations);
         var maxLineNumDigits = lines.length.toString().length;
         // if we are only printing matching lines, we don't need array for resulting lines

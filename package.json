@@ -1,6 +1,6 @@
 {
   "name": "ts-file-io",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "TypeScript utils for common Node.js file I/O operations",
   "author": "TeamworkGuy2",
   "license": "MIT",

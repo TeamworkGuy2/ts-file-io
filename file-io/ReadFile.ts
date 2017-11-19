@@ -107,7 +107,7 @@ module ReadFile {
         var linesSections: { [sectionName: string]: string[] } = {};
 
         // detect the most common opening XML tab in a list of XML lines where each line has a single opening and closing XML tag
-        function detectSectionName(lines: string[]): string {
+        function detectSectionName(lines: string[]): string | null {
             var lineTypes: { [startsWith: string]: number } = {};
 
             for (var i = 0, size = lines.length; i < size; i++) {
@@ -116,7 +116,7 @@ module ReadFile {
                 lineTypes[startStr] = (lineTypes[startStr] || 0) + 1;
             }
 
-            var highestCountProp: string = null;
+            var highestCountProp: string | null = null;
             var highestCount = 0;
             var props = Object.keys(lineTypes);
             for (var i = 0, size = props.length; i < size; i++) {

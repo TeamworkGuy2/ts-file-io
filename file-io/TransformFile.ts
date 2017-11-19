@@ -75,8 +75,7 @@ module TransformFile {
     export function transformLines(fileName: string, lines: string[], startMarker: string, endMarker: string, transformations: { [name: string]: ReplaceVar }): string[] {
         startMarker = (startMarker == null ? "" : startMarker);
         endMarker = (endMarker == null ? "" : endMarker);
-        var origLines = lines;
-        var newLines: string[] = null;
+        var newLines: string[] = lines;
         var variableNames = Object.keys(transformations);
 
         var maxLineNumDigits = lines.length.toString().length;
