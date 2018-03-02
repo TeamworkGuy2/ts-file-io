@@ -12,7 +12,7 @@ module WriteFile {
 
 
     export function writeFileSections(filePath: string, linesSections: { [sectionName: string]: string[] }): void {
-        var allLines = [];
+        var allLines: string[] = [];
         var props = Object.keys(linesSections);
         for (var i = 0, size = props.length; i < size; i++) {
             Arrays.addAll(allLines, linesSections[props[i]]);
@@ -40,7 +40,7 @@ module WriteFile {
 
 
     export function writeFileLinesAsync(fileName: string, srcLines: string[], doneCb: (msg: string) => void, errorCb: (errMsg: string) => void,
-        postFileWritten?: (fileName: string, successCb: () => void, errorCb: (err) => void) => void): void {
+        postFileWritten?: (fileName: string, successCb: () => void, errorCb: (err: any) => void) => void): void {
         var text = srcLines.join("\n");
         text = joinLinesForFile(text);
 

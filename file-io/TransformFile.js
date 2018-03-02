@@ -2,7 +2,7 @@
 var fs = require("fs");
 var Q = require("q");
 var Arrays = require("../../ts-mortar/utils/Arrays");
-var gutil = require("gulp-util");
+var log = require("fancy-log");
 var WriteFile = require("./WriteFile");
 /** Methods for transforming template files and splitting and joining lines
  * @author TeamworkGuy2
@@ -70,7 +70,7 @@ var TransformFile;
         var maxLineNumDigits = lines.length.toString().length;
         // if we are only printing matching lines, we don't need array for resulting lines
         if (variableNames != null && variableNames.filter(function (k) { return transformations[k].op === MatchOperation.PRINT_LINES; }).length === variableNames.length) {
-            gutil.log("Matching lines in: " + fileName);
+            log("Matching lines in: " + fileName);
         }
         var returnNonMatching = true;
         // don't return non-matching strings if any of the transformation operations are 'return' operations
@@ -93,7 +93,7 @@ var TransformFile;
                         case MatchOperation.DELETE_LINES:
                             break;
                         case MatchOperation.PRINT_LINES:
-                            gutil.log(i + ". " + lines[i]);
+                            log(i + ". " + lines[i]);
                             break;
                         case MatchOperation.REPLACE_LINES:
                             if (opParamIsAry) {

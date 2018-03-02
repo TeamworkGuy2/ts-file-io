@@ -1,25 +1,26 @@
 {
   "name": "ts-file-io",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "TypeScript utils for common Node.js file I/O operations",
   "author": "TeamworkGuy2",
+  "homepage" : "https://github.com/TeamworkGuy2/ts-file-io",
   "license": "MIT",
   "dependencies": {
-    "ts-mortar": "^0.3.0",
     "q": "~1.5.0"
   },
   "devDependencies": {
-    "@types/chai": "~4.0.0",
-    "@types/mocha": "~2.2.0",
-    "@types/gulp-util": "~3.0.0",
-    "@types/node": "~8.0.0",
-    "@types/q": "~1.0.0",
+    "@types/chai": "~4.1.0",
+    "@types/mocha": "~2.2.48",
+    "@types/fancy-log": "~1.3.0",
+    "@types/node": "~9.4.0",
+    "@types/q": "~1.0.7",
     "chai": "~4.1.0",
-    "gulp-util": "~3.0.0",
-    "mocha": "~4.0.0",
-    "typescript": "~2.4.0"
+    "fancy-log": "~1.3.0",
+    "mocha": "~5.0.0",
+    "typescript": "~2.7.0"
   },
   "scripts": {
-    "test": "mocha -u tdd --recursive"
+    "test": "mocha -u tdd --recursive",
+    "tsc": "./node_modules/typescript/bin/tsc"
   }
 }

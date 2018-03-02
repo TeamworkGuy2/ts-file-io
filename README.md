@@ -3,7 +3,7 @@ Node.js File I/O Utils
 
 Dependencies:
 - ts-mortar
-- gulp-util (for TransformFile)
+- fancy-log (for TransformFile)
 - Q (for TransformFile)
 
 Some common file read/write/manipulate operations I've found useful in Node.js in previous projects.

@@ -4,6 +4,14 @@ This project 'tries' to adhere to [Semantic Versioning](http://semver.org/).
 
 
 --------
+### [0.1.2](N/A) - 2018-03-01
+#### Changed
+* Update to TypeScript 2.7
+* Update dependencies: mocha, @types/chai, @types/mocha, @types/node, @types/q
+* Enable tsconfig.json `noImplicitAny`
+
+
+--------
 ### [0.1.1](N/A) - 2017-11-19
 #### Added
 * `package.json` added `strictNullChecks` support and updated code to support null types

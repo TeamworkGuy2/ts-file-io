@@ -6,7 +6,7 @@ var WriteFile = require("../file-io/WriteFile");
 /** A manipulator for a file sections map created by ReadFile.readLinesSections() or similar function
  * @since 2015-8-11
  */
-var FileSectionManipulator = (function () {
+var FileSectionManipulator = /** @class */ (function () {
     function FileSectionManipulator() {
     }
     FileSectionManipulator.prototype.addSectionLines = function (sectionName, lines) {

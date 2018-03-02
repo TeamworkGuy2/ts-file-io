@@ -5,7 +5,7 @@ var FileSectionManipulator = require("../FileSectionManipulator");
  * @author TeamworkGuy2
  * @since 2015-8-11
  */
-var VsProjManipulator = (function () {
+var VsProjManipulator = /** @class */ (function () {
     function VsProjManipulator(vsProjFilePath, webConfigFilePath) {
         this.vsProjFileManipulator = new FileSectionManipulator();
         this.vsProjFileManipulator.loadFile(vsProjFilePath, [["<ItemGroup>", "</ItemGroup>"]]);

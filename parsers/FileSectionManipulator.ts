@@ -40,7 +40,7 @@ class FileSectionManipulator {
     }
 
 
-    private static xmlTagExtractor(ln) {
+    private static xmlTagExtractor(ln: string) {
         var line = Strings.removeLeading(ln.trim(), "<");
         line = Strings.removeTrailing(line, ">");
         var tag = line.split(' ', 2)[0];

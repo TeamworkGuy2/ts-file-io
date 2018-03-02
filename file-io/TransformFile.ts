@@ -1,7 +1,7 @@
 ﻿import fs = require("fs");
 import Q = require("q");
 import Arrays = require("../../ts-mortar/utils/Arrays");
-import gutil = require("gulp-util");
+import log = require("fancy-log");
 import WriteFile = require("./WriteFile");
 
 /** Methods for transforming template files and splitting and joining lines
@@ -81,7 +81,7 @@ module TransformFile {
         var maxLineNumDigits = lines.length.toString().length;
         // if we are only printing matching lines, we don't need array for resulting lines
         if (variableNames != null && variableNames.filter((k) => transformations[k].op === MatchOperation.PRINT_LINES).length === variableNames.length) {
-            gutil.log("Matching lines in: " + fileName);
+            log("Matching lines in: " + fileName);
         }
 
         var returnNonMatching: boolean = true;
@@ -106,7 +106,7 @@ module TransformFile {
                         case MatchOperation.DELETE_LINES:
                             break;
                         case MatchOperation.PRINT_LINES:
-                            gutil.log(i + ". " + lines[i]);
+                            log(i + ". " + lines[i]);
                             break;
                         case MatchOperation.REPLACE_LINES:
                             if (opParamIsAry) {
@@ -201,7 +201,7 @@ module TransformFile {
         variablesNamesToLines: { [id: string]: string | string[] | ReplaceVar },
         doneCb: (res: { srcLines: string[]; transformedLines: string[]; }) => void,
         errorCb: (errMsg: string) => void,
-        postFileWritten?: (fileName: string, successCb: () => void, errorCb: (err) => void) => void
+        postFileWritten?: (fileName: string, successCb: () => void, errorCb: (err: any) => void) => void
     ) {
 
         var resLns = transformFileToLines(matchOp, srcFile, startVarMark, endVarMark, variablesNamesToLines);
@@ -225,8 +225,9 @@ module TransformFile {
 
 
     export function convertTemplateFileAsync(srcFile: string, dstFile: string, variablesNamesToLines: { [id: string]: string | string[] },
-            postFileWritten?: (fileName: string, successCb: () => void, errorCb: (err) => void) => void, successMsg?: string,
-            delimiterStart: string = "$", delimiterEnd: string = "$") {
+        postFileWritten?: (fileName: string, successCb: () => void, errorCb: (err: any) => void) => void,
+        successMsg?: string, delimiterStart: string = "$", delimiterEnd: string = "$"
+    ) {
         var dfd = Q.defer<string>();
 
         transformFileToFileAsync(MatchOperation.REPLACE_MATCHING_PORTION, srcFile, dstFile, delimiterStart, delimiterEnd, variablesNamesToLines, function (msg) {
