@@ -1,5 +1,5 @@
-﻿import Arrays = require("../../ts-mortar/utils/Arrays");
-import Strings = require("../../ts-mortar/utils/Strings");
+﻿import Arrays = require("ts-mortar/utils/Arrays");
+import Strings = require("ts-mortar/utils/Strings");
 import ReadFile = require("../file-io/ReadFile");
 import WriteFile = require("../file-io/WriteFile");
 

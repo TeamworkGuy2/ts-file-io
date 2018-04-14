@@ -1,4 +1,4 @@
-﻿import Strings = require("../../../ts-mortar/utils/Strings");
+﻿import Strings = require("ts-mortar/utils/Strings");
 import FileSectionManipulator = require("../FileSectionManipulator");
 
 /**

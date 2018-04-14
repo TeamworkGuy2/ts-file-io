@@ -1,8 +1,8 @@
 "use strict";
 var fs = require("fs");
 var Q = require("q");
-var Arrays = require("../../ts-mortar/utils/Arrays");
 var log = require("fancy-log");
+var Arrays = require("ts-mortar/utils/Arrays");
 var WriteFile = require("./WriteFile");
 /** Methods for transforming template files and splitting and joining lines
  * @author TeamworkGuy2

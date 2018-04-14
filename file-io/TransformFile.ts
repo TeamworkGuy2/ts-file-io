@@ -1,7 +1,7 @@
 ﻿import fs = require("fs");
 import Q = require("q");
-import Arrays = require("../../ts-mortar/utils/Arrays");
 import log = require("fancy-log");
+import Arrays = require("ts-mortar/utils/Arrays");
 import WriteFile = require("./WriteFile");
 
 /** Methods for transforming template files and splitting and joining lines

@@ -4,7 +4,14 @@ This project 'tries' to adhere to [Semantic Versioning](http://semver.org/).
 
 
 --------
-### [0.1.3](N/A) - 2018-04-02
+### [0.1.4](N/A) - 2018-04-14
+#### Changed
+* Setup ts-mortar as a proper npm node_modules dependency
+* Added release tarball and npm script `build-package` to package.json referencing external process to generate tarball
+
+
+--------
+### [0.1.3](https://github.com/TeamworkGuy2/ts-file-io/commit/6aa9186dee829ec8a3c751f4d4aadad9985c1080) - 2018-04-02
 #### Changed
 * Update to TypeScript 2.8
 * Update dependencies: @types/mocha, @types/node, @types/q

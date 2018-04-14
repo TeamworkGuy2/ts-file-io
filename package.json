@@ -1,11 +1,16 @@
 {
   "name": "ts-file-io",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "TypeScript utils for common Node.js file I/O operations",
   "author": "TeamworkGuy2",
   "homepage": "https://github.com/TeamworkGuy2/ts-file-io",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/TeamworkGuy2/ts-file-io.git"
+  },
   "dependencies": {
+    "ts-mortar": "https://github.com/TeamworkGuy2/ts-mortar/blob/master/bin/ts-mortar-0.15.7.tgz?raw=true",
     "q": "~1.5.0"
   },
   "devDependencies": {
@@ -20,6 +25,7 @@
     "typescript": "~2.8.0"
   },
   "scripts": {
+    "build-package": "node ../package-tarball/index.js",
     "test": "mocha -u tdd --recursive",
     "tsc": "tsc"
   }

@@ -1,5 +1,5 @@
 "use strict";
-var Strings = require("../../../ts-mortar/utils/Strings");
+var Strings = require("ts-mortar/utils/Strings");
 var FileSectionManipulator = require("../FileSectionManipulator");
 /**
  * @author TeamworkGuy2

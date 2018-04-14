@@ -1,5 +1,5 @@
 ﻿import fs = require("fs");
-import Arrays = require("../../ts-mortar/utils/Arrays");
+import Arrays = require("ts-mortar/utils/Arrays");
 
 /**
  * @since 2015-8-10

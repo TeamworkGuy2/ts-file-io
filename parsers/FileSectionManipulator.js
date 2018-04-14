@@ -1,6 +1,6 @@
 "use strict";
-var Arrays = require("../../ts-mortar/utils/Arrays");
-var Strings = require("../../ts-mortar/utils/Strings");
+var Arrays = require("ts-mortar/utils/Arrays");
+var Strings = require("ts-mortar/utils/Strings");
 var ReadFile = require("../file-io/ReadFile");
 var WriteFile = require("../file-io/WriteFile");
 /** A manipulator for a file sections map created by ReadFile.readLinesSections() or similar function
