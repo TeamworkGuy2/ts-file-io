@@ -11,11 +11,9 @@ class VsProjManipulator {
 
 
     constructor(vsProjFilePath: string, webConfigFilePath: string) {
-        this.vsProjFileManipulator = new FileSectionManipulator();
-        this.vsProjFileManipulator.loadFile(vsProjFilePath, [["<ItemGroup>", "</ItemGroup>"]]);
+        this.vsProjFileManipulator = FileSectionManipulator.loadFile(vsProjFilePath, [["<ItemGroup>", "</ItemGroup>"]]);
 
-        this.webConfigFileManipulator = new FileSectionManipulator();
-        this.webConfigFileManipulator.loadFile(webConfigFilePath, [["<serviceActivations>", "</serviceActivations>"], ["<services>", "</services>"]]);
+        this.webConfigFileManipulator = FileSectionManipulator.loadFile(webConfigFilePath, [["<serviceActivations>", "</serviceActivations>"], ["<services>", "</services>"]]);
     }
 
 

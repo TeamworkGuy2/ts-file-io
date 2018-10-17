@@ -4,7 +4,17 @@ This project 'tries' to adhere to [Semantic Versioning](http://semver.org/).
 
 
 --------
-### [0.1.4](N/A) - 2018-04-14
+### [0.2.0](N/A) - 2018-10-16
+#### Changed
+* Update to TypeScript 3.1
+* Update dev dependencies and @types
+* Enable `tsconfig.json` `strict` and fix compile errors
+* Removed compiled bin tarball in favor of git tags
+* `FileSectionManipulator.addSectionLines()` adds a section if one does not exist rather than throwing an error.  For the old behavior of throwing an error, pass true as the 3rd argument
+
+
+--------
+### [0.1.4](https://github.com/TeamworkGuy2/ts-file-io/commit/8f4759f57920c63c28d47bd5d0f395e2336a2422) - 2018-04-14
 #### Changed
 * Setup ts-mortar as a proper npm node_modules dependency
 * Added release tarball and npm script `build-package` to package.json referencing external process to generate tarball

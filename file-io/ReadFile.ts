@@ -101,7 +101,7 @@ module ReadFile {
 
     /** split a set of lines into a matching section and the lines that come before and after that section
      */
-    export function readLinesSections(lines: string[], sectionStartEndLines: [string, string][], includeStartEndLinesInSection: boolean, lineTypeDector: (line: string) => string): { [sectionName: string]: string[] } {
+    export function readLinesSections(lines: string[], sectionStartEndLines: [string, string][], includeStartEndLinesInSection: boolean, lineTypeDetector: (line: string) => string): { [sectionName: string]: string[] } {
         var sectionStartLinesTrimmed = sectionStartEndLines.map((strs) => strs[0].trim());
         var sectionEndLinesTrimmed = sectionStartEndLines.map((strs) => strs[1].trim());
         var linesSections: { [sectionName: string]: string[] } = {};
@@ -111,7 +111,7 @@ module ReadFile {
             var lineTypes: { [startsWith: string]: number } = {};
 
             for (var i = 0, size = lines.length; i < size; i++) {
-                var startStr = lineTypeDector(lines[i]);
+                var startStr = lineTypeDetector(lines[i]);
 
                 lineTypes[startStr] = (lineTypes[startStr] || 0) + 1;
             }

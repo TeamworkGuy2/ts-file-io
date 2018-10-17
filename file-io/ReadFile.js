@@ -102,7 +102,7 @@ var ReadFile;
     ReadFile.readLinesSection = readLinesSection;
     /** split a set of lines into a matching section and the lines that come before and after that section
      */
-    function readLinesSections(lines, sectionStartEndLines, includeStartEndLinesInSection, lineTypeDector) {
+    function readLinesSections(lines, sectionStartEndLines, includeStartEndLinesInSection, lineTypeDetector) {
         var sectionStartLinesTrimmed = sectionStartEndLines.map(function (strs) { return strs[0].trim(); });
         var sectionEndLinesTrimmed = sectionStartEndLines.map(function (strs) { return strs[1].trim(); });
         var linesSections = {};
@@ -110,7 +110,7 @@ var ReadFile;
         function detectSectionName(lines) {
             var lineTypes = {};
             for (var i = 0, size = lines.length; i < size; i++) {
-                var startStr = lineTypeDector(lines[i]);
+                var startStr = lineTypeDetector(lines[i]);
                 lineTypes[startStr] = (lineTypes[startStr] || 0) + 1;
             }
             var highestCountProp = null;

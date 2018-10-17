@@ -7,10 +7,8 @@ var FileSectionManipulator = require("../FileSectionManipulator");
  */
 var VsProjManipulator = /** @class */ (function () {
     function VsProjManipulator(vsProjFilePath, webConfigFilePath) {
-        this.vsProjFileManipulator = new FileSectionManipulator();
-        this.vsProjFileManipulator.loadFile(vsProjFilePath, [["<ItemGroup>", "</ItemGroup>"]]);
-        this.webConfigFileManipulator = new FileSectionManipulator();
-        this.webConfigFileManipulator.loadFile(webConfigFilePath, [["<serviceActivations>", "</serviceActivations>"], ["<services>", "</services>"]]);
+        this.vsProjFileManipulator = FileSectionManipulator.loadFile(vsProjFilePath, [["<ItemGroup>", "</ItemGroup>"]]);
+        this.webConfigFileManipulator = FileSectionManipulator.loadFile(webConfigFilePath, [["<serviceActivations>", "</serviceActivations>"], ["<services>", "</services>"]]);
     }
     VsProjManipulator.prototype.getProjFileSections = function () {
         return this.vsProjFileManipulator.getSections();

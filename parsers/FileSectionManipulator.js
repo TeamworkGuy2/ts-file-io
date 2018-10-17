@@ -7,12 +7,20 @@ var WriteFile = require("../file-io/WriteFile");
  * @since 2015-8-11
  */
 var FileSectionManipulator = /** @class */ (function () {
-    function FileSectionManipulator() {
+    function FileSectionManipulator(filePath) {
+        this.fileSections = {};
+        this.filePath = filePath;
     }
-    FileSectionManipulator.prototype.addSectionLines = function (sectionName, lines) {
+    FileSectionManipulator.prototype.addSectionLines = function (sectionName, lines, errorIfNotExist) {
+        if (errorIfNotExist === void 0) { errorIfNotExist = false; }
         var section = this.fileSections[sectionName];
         if (section == null) {
-            throw new Error("file '" + this.filePath + "' does not contain section named '" + sectionName + "'");
+            if (errorIfNotExist) {
+                throw new Error("file '" + this.filePath + "' does not contain section named '" + sectionName + "'");
+            }
+            else {
+                this.fileSections[sectionName] = [];
+            }
         }
         Arrays.addAll(section, lines);
     };
@@ -21,11 +29,16 @@ var FileSectionManipulator = /** @class */ (function () {
     };
     FileSectionManipulator.prototype.loadFile = function (filePath, sectionStartEndStrs) {
         this.filePath = filePath;
-        this.fileSections = ReadFile.readLinesSections(ReadFile.readLines(this.filePath), sectionStartEndStrs, false, FileSectionManipulator.xmlTagExtractor);
+        this.fileSections = ReadFile.readLinesSections(ReadFile.readLines(filePath), sectionStartEndStrs, false, FileSectionManipulator.xmlTagExtractor);
     };
     FileSectionManipulator.prototype.saveFile = function (filePath) {
         if (filePath === void 0) { filePath = this.filePath; }
         WriteFile.writeFileSections(filePath, this.fileSections);
+    };
+    FileSectionManipulator.loadFile = function (filePath, sectionStartEndStrs) {
+        var fsm = new FileSectionManipulator(filePath);
+        fsm.loadFile(filePath, sectionStartEndStrs);
+        return fsm;
     };
     FileSectionManipulator.xmlTagExtractor = function (ln) {
         var line = Strings.removeLeading(ln.trim(), "<");

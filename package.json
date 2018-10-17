@@ -1,6 +1,6 @@
 {
   "name": "ts-file-io",
-  "version": "0.1.4",
+  "version": "0.2.0",
   "description": "TypeScript utils for common Node.js file I/O operations",
   "author": "TeamworkGuy2",
   "homepage": "https://github.com/TeamworkGuy2/ts-file-io",
@@ -10,22 +10,21 @@
     "url": "https://github.com/TeamworkGuy2/ts-file-io.git"
   },
   "dependencies": {
-    "ts-mortar": "https://github.com/TeamworkGuy2/ts-mortar/blob/master/bin/ts-mortar-0.15.7.tgz?raw=true",
+    "ts-mortar": "https://github.com/TeamworkGuy2/ts-mortar#v0.15.8",
     "q": "~1.5.0"
   },
   "devDependencies": {
-    "@types/chai": "~4.1.2",
-    "@types/mocha": "~5.0.0",
+    "@types/chai": "~4.1.6",
+    "@types/mocha": "~5.2.5",
     "@types/fancy-log": "~1.3.0",
-    "@types/node": "~9.6.1",
-    "@types/q": "~1.5.0",
-    "chai": "~4.1.2",
-    "fancy-log": "~1.3.0",
-    "mocha": "~5.0.5",
-    "typescript": "~2.8.0"
+    "@types/node": "~10.11.7",
+    "@types/q": "~1.5.1",
+    "chai": "~4.2.0",
+    "fancy-log": "~1.3.2",
+    "mocha": "~5.2.0",
+    "typescript": "~3.1.3"
   },
   "scripts": {
-    "build-package": "node ../package-tarball/index.js",
     "test": "mocha -u tdd --recursive",
     "tsc": "tsc"
   }
