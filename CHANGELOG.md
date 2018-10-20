@@ -2,9 +2,14 @@
 All notable changes to this project will be documented in this file.
 This project 'tries' to adhere to [Semantic Versioning](http://semver.org/).
 
+--------
+### [0.2.1](N/A) - 2018-10-20
+#### Changed
+* Switch `package.json` github dependencies from tag urls to release tarballs to simplify npm install (doesn't require git to npm install tarballs)
+
 
 --------
-### [0.2.0](N/A) - 2018-10-16
+### [0.2.0](https://github.com/TeamworkGuy2/ts-file-io/commit/428d9c2d02dd491e55dcdafa984cd9d733ed62ce) - 2018-10-17
 #### Changed
 * Update to TypeScript 3.1
 * Update dev dependencies and @types
