@@ -1,5 +1,4 @@
-﻿import Strings = require("ts-mortar/utils/Strings");
-import FileSectionManipulator = require("../FileSectionManipulator");
+﻿import FileSectionManipulator = require("../FileSectionManipulator");
 
 /**
  * @author TeamworkGuy2
@@ -38,8 +37,8 @@ class VsProjManipulator {
 
 
     public addServiceNamespace(projectNamespaceName: string, serviceImplNamespace: string, serviceInterfacePathNamespace: string, serviceWebAddressPath: string): void {
-        this.addService(Strings.replaceAll(serviceImplNamespace, ".", "\\"), serviceImplNamespace.substr(projectNamespaceName.length + 1),
-            Strings.replaceAll(serviceInterfacePathNamespace, ".", "\\"), serviceInterfacePathNamespace.substr(projectNamespaceName.length + 1),
+        this.addService(VsProjManipulator.replaceAll(serviceImplNamespace, ".", "\\"), serviceImplNamespace.substr(projectNamespaceName.length + 1),
+            VsProjManipulator.replaceAll(serviceInterfacePathNamespace, ".", "\\"), serviceInterfacePathNamespace.substr(projectNamespaceName.length + 1),
             serviceWebAddressPath);
     }
 
@@ -62,6 +61,12 @@ class VsProjManipulator {
     public saveProjectFiles(vsProjFilePath?: string, webConfigFilePath?: string) {
         this.webConfigFileManipulator.saveFile(webConfigFilePath);
         this.vsProjFileManipulator.saveFile(vsProjFilePath);
+    }
+
+
+    // copied from ts-mortar
+    private static replaceAll(str: string, find: string, replace: string): string {
+        return str.split(find).join(replace);
     }
 
 }

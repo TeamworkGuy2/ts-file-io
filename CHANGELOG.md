@@ -4,7 +4,17 @@ This project 'tries' to adhere to [Semantic Versioning](http://semver.org/).
 
 
 --------
-### [0.2.2](N/A) - 2018-11-23
+### [0.2.3](N/A) - 2018-12-29
+#### Changed
+* Update to TypeScript 3.2
+* Update dev dependencies and @types
+
+#### Removed
+* Remove dependency `ts-mortar`
+
+
+--------
+### [0.2.2](https://github.com/TeamworkGuy2/ts-file-io/commit/2e85fb0869f0f2ae2bdc8440f8ef2a580fb86362) - 2018-11-23
 #### Changed
 * Update dependency `ts-mortar@0.15.9` (fix for `Functions.lazy()` when initializer returns null)
 

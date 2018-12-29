@@ -2,7 +2,6 @@
 var fs = require("fs");
 var Q = require("q");
 var log = require("fancy-log");
-var Arrays = require("ts-mortar/utils/Arrays");
 var WriteFile = require("./WriteFile");
 /** Methods for transforming template files and splitting and joining lines
  * @author TeamworkGuy2
@@ -97,7 +96,7 @@ var TransformFile;
                             break;
                         case MatchOperation.REPLACE_LINES:
                             if (opParamIsAry) {
-                                Arrays.addAll(newLines, opParam);
+                                addAll(newLines, opParam);
                             }
                             else {
                                 newLines.push(opParam);
@@ -112,7 +111,7 @@ var TransformFile;
                                 var resLine = lines[i].replace(varFullName, opParam[0]);
                                 newLines.push(resLine);
                                 if (opParam.length > 1) {
-                                    Arrays.addAll(newLines, opParam.slice(1));
+                                    addAll(newLines, opParam.slice(1));
                                 }
                             }
                             else {
@@ -203,5 +202,12 @@ var TransformFile;
         return dfd.promise;
     }
     TransformFile.convertTemplateFileAsync = convertTemplateFileAsync;
+    // copied from ts-mortar
+    function addAll(src, toAdd) {
+        if (toAdd != null && toAdd.length > 0) {
+            Array.prototype.push.apply(src, toAdd);
+        }
+        return src;
+    }
 })(TransformFile || (TransformFile = {}));
 module.exports = TransformFile;

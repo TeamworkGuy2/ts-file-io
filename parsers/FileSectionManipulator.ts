@@ -1,6 +1,4 @@
-﻿import Arrays = require("ts-mortar/utils/Arrays");
-import Strings = require("ts-mortar/utils/Strings");
-import ReadFile = require("../file-io/ReadFile");
+﻿import ReadFile = require("../file-io/ReadFile");
 import WriteFile = require("../file-io/WriteFile");
 
 /** A manipulator for a file sections map created by ReadFile.readLinesSections() or similar function
@@ -26,7 +24,7 @@ class FileSectionManipulator {
                 this.fileSections[sectionName] = [];
             }
         }
-        Arrays.addAll(section, lines);
+        Array.prototype.push.apply(section, lines);
     }
 
 
@@ -54,8 +52,10 @@ class FileSectionManipulator {
 
 
     private static xmlTagExtractor(ln: string) {
-        var line = Strings.removeLeading(ln.trim(), "<");
-        line = Strings.removeTrailing(line, ">");
+        var line = ln.trim();
+        var len = line.length;
+        line = line.substring(line.charAt(0) === "<" ? 1 : 0, line.charAt(len - 1) === ">" ? len - 1 : len);
+
         var tag = line.split(' ', 2)[0];
         return tag;
     }

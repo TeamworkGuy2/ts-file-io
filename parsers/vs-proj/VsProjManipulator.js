@@ -1,5 +1,4 @@
 "use strict";
-var Strings = require("ts-mortar/utils/Strings");
 var FileSectionManipulator = require("../FileSectionManipulator");
 /**
  * @author TeamworkGuy2
@@ -23,7 +22,7 @@ var VsProjManipulator = /** @class */ (function () {
         this.vsProjFileManipulator.addSectionLines("Compile", ['    <Compile Include="' + fileRelativePath + '" />']);
     };
     VsProjManipulator.prototype.addServiceNamespace = function (projectNamespaceName, serviceImplNamespace, serviceInterfacePathNamespace, serviceWebAddressPath) {
-        this.addService(Strings.replaceAll(serviceImplNamespace, ".", "\\"), serviceImplNamespace.substr(projectNamespaceName.length + 1), Strings.replaceAll(serviceInterfacePathNamespace, ".", "\\"), serviceInterfacePathNamespace.substr(projectNamespaceName.length + 1), serviceWebAddressPath);
+        this.addService(VsProjManipulator.replaceAll(serviceImplNamespace, ".", "\\"), serviceImplNamespace.substr(projectNamespaceName.length + 1), VsProjManipulator.replaceAll(serviceInterfacePathNamespace, ".", "\\"), serviceInterfacePathNamespace.substr(projectNamespaceName.length + 1), serviceWebAddressPath);
     };
     VsProjManipulator.prototype.addService = function (serviceImplPath, serviceImplNamespace, serviceInterfacePath, serviceInterfacePathNamespace, serviceWebAddressPath) {
         var serviceActivationsLines = ['        <add service="' + serviceImplNamespace + '" factory="System.ServiceModel.Activation.WebServiceHostFactory" relativeAddress="' + serviceWebAddressPath + '" />'];
@@ -40,6 +39,10 @@ var VsProjManipulator = /** @class */ (function () {
     VsProjManipulator.prototype.saveProjectFiles = function (vsProjFilePath, webConfigFilePath) {
         this.webConfigFileManipulator.saveFile(webConfigFilePath);
         this.vsProjFileManipulator.saveFile(vsProjFilePath);
+    };
+    // copied from ts-mortar
+    VsProjManipulator.replaceAll = function (str, find, replace) {
+        return str.split(find).join(replace);
     };
     return VsProjManipulator;
 }());
