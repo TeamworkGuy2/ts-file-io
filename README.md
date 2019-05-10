@@ -2,7 +2,6 @@ Node.js File I/O Utils
 ==============
 
 Dependencies:
-- ts-mortar
 - fancy-log (for TransformFile)
 - Q (for TransformFile)
 

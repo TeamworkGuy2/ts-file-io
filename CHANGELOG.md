@@ -4,7 +4,13 @@ This project 'tries' to adhere to [Semantic Versioning](http://semver.org/).
 
 
 --------
-### [0.2.3](N/A) - 2018-12-29
+### [0.2.4](N/A) - 2018-05-10
+#### Changed
+* Fixed `package.json` from devDependencies -> dependencies, updated `@types/node` to `@^12.0.0`
+
+
+--------
+### [0.2.3](https://github.com/TeamworkGuy2/ts-file-io/commit/e5323d5575d6b46777169a32944aa1741947495a) - 2018-12-29
 #### Changed
 * Update to TypeScript 3.2
 * Update dev dependencies and @types
