@@ -1,6 +1,6 @@
 {
   "name": "ts-file-io",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "TypeScript utils for common Node.js file I/O operations",
   "author": "TeamworkGuy2",
   "homepage": "https://github.com/TeamworkGuy2/ts-file-io",
@@ -21,7 +21,7 @@
     "@types/mocha": "~5.2.7",
     "chai": "~4.2.0",
     "mocha": "~5.2.0",
-    "typescript": "~4.0.2"
+    "typescript": "~4.3.2"
   },
   "scripts": {
     "test": "node node_modules/mocha/bin/_mocha -u tdd --recursive",

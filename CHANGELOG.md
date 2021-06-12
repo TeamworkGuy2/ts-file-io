@@ -4,7 +4,13 @@ This project 'tries' to adhere to [Semantic Versioning](http://semver.org/).
 
 
 --------
-### [0.3.0](N/A) - 2020-09-04
+### [0.4.0](N/A) - 2021-06-12
+#### Changed
+* Update to TypeScript 4.3
+
+
+--------
+### [0.3.0](https://github.com/TeamworkGuy2/ts-file-io/commit/be88e311a1ee52f547e3cd4ac205636ea6983550) - 2020-09-04
 #### Changed
 * Update to TypeScript 4.0
 
