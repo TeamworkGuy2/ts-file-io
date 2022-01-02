@@ -1,7 +1,5 @@
 "use strict";
 var fs = require("fs");
-var Q = require("q");
-var log = require("fancy-log");
 var WriteFile = require("./WriteFile");
 /** Methods for transforming template files and splitting and joining lines
  * @author TeamworkGuy2
@@ -61,15 +59,16 @@ var TransformFile;
      * variable names to operations and operation parameters to replace them with
      * @return an array of transformed strings
      */
-    function transformLines(fileName, lines, startMarker, endMarker, transformations) {
+    function transformLines(fileName, lines, startMarker, endMarker, transformations, log) {
         startMarker = (startMarker == null ? "" : startMarker);
         endMarker = (endMarker == null ? "" : endMarker);
         var newLines = lines;
         var variableNames = Object.keys(transformations);
-        var maxLineNumDigits = lines.length.toString().length;
         // if we are only printing matching lines, we don't need array for resulting lines
         if (variableNames != null && variableNames.filter(function (k) { return transformations[k].op === MatchOperation.PRINT_LINES; }).length === variableNames.length) {
-            log("Matching lines in: " + fileName);
+            if (log) {
+                log("Matching lines in: " + fileName);
+            }
         }
         var returnNonMatching = true;
         // don't return non-matching strings if any of the transformation operations are 'return' operations
@@ -92,7 +91,9 @@ var TransformFile;
                         case MatchOperation.DELETE_LINES:
                             break;
                         case MatchOperation.PRINT_LINES:
-                            log(i + ". " + lines[i]);
+                            if (log) {
+                                log(i + ". " + lines[i]);
+                            }
                             break;
                         case MatchOperation.REPLACE_LINES:
                             if (opParamIsAry) {
@@ -142,19 +143,19 @@ var TransformFile;
         return newLines || [];
     }
     TransformFile.transformLines = transformLines;
-    function transformFile(srcFile, startVarMark, endVarMark, transformations) {
+    function transformFile(srcFile, startVarMark, endVarMark, transformations, log) {
         var fileSrc = fs.readFileSync(srcFile);
         var fileLines = splitFileLines(fileSrc.toString());
-        var lines = transformLines(srcFile, fileLines, startVarMark, endVarMark, transformations);
+        var lines = transformLines(srcFile, fileLines, startVarMark, endVarMark, transformations, log);
         return lines;
     }
     TransformFile.transformFile = transformFile;
     /** Transform a file's contents and return the original and resulting lines to a callback function
      */
-    function transformFileToLines(matchOp, srcFile, startVarMark, endVarMark, variablesNamesToLines) {
+    function transformFileToLines(matchOp, srcFile, startVarMark, endVarMark, variablesNamesToLines, log) {
         var buf = fs.readFileSync(srcFile);
         var srcLines = splitFileLines(buf.toString());
-        var transformedLines = transformLines(srcFile, srcLines, startVarMark, endVarMark, mapVarsToOps(matchOp, variablesNamesToLines));
+        var transformedLines = transformLines(srcFile, srcLines, startVarMark, endVarMark, mapVarsToOps(matchOp, variablesNamesToLines), log);
         return {
             srcLines: srcLines,
             transformedLines: transformedLines
@@ -193,13 +194,18 @@ var TransformFile;
     function convertTemplateFileAsync(srcFile, dstFile, variablesNamesToLines, postFileWritten, successMsg, delimiterStart, delimiterEnd) {
         if (delimiterStart === void 0) { delimiterStart = "$"; }
         if (delimiterEnd === void 0) { delimiterEnd = "$"; }
-        var dfd = Q.defer();
+        var resolve;
+        var reject;
+        var promise = new Promise(function (res, rej) {
+            resolve = res;
+            reject = rej;
+        });
         transformFileToFileAsync(MatchOperation.REPLACE_MATCHING_PORTION, srcFile, dstFile, delimiterStart, delimiterEnd, variablesNamesToLines, function (msg) {
-            dfd.resolve((successMsg ? successMsg + ": " : "") + msg);
+            resolve((successMsg ? successMsg + ": " : "") + msg);
         }, function (err) {
-            dfd.reject(err);
+            reject(err);
         }, postFileWritten);
-        return dfd.promise;
+        return promise;
     }
     TransformFile.convertTemplateFileAsync = convertTemplateFileAsync;
     // copied from ts-mortar

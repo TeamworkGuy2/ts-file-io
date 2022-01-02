@@ -8,25 +8,44 @@ module ReadFile {
     /** Read a UTF-8 file and optional strip BOM
      */
     export function readUtf8File(filePath: string, stripBom = true) {
-        //try {
-            var src = fs.readFileSync(filePath, "UTF-8");
-            if(stripBom) src = src.replace(/^\uFEFF/, "");
-            return src;
-        //} catch (err) {
-        //    return err;
-        //}
+        var src = fs.readFileSync(filePath, "UTF-8");
+        if(stripBom) src = src.replace(/^\uFEFF/, "");
+        return src;
     }
 
 
     /** Read a UTF-8 file, strip BOM, and return the JSON.parse() result
      */
     export function loadJsonFile(filePath: string) {
-        //try {
-            var src = readUtf8File(filePath, true);
-            return JSON.parse(src);
-        //} catch (err) {
-        //    return err;
-        //}
+        var src = readUtf8File(filePath, true);
+        return JSON.parse(src);
+    }
+
+
+    /** Read a file async
+     * @param filePath the file path
+     * @param options optional, encoding option
+     */
+    export function readFile(filePath: string | fs.PathLike, options: string | { encoding: string }): Promise<string>
+    export function readFile(filePath: string | fs.PathLike, options: string | { encoding?: string }): Promise<string | Buffer>;
+    export function readFile(filePath: string | fs.PathLike, options: string | { encoding?: string }): Promise<string | Buffer> {
+        var resolve: (value: string | Buffer) => void;
+        var reject: (err: Error) => void;
+        var pResponse = new Promise<string | Buffer>((res, rej) => {
+            resolve = res;
+            reject = rej;
+        });
+
+        fs.readFile(filePath, options, (err, data) => {
+            if (err) {
+                reject(err);
+            }
+            else {
+                resolve(data);
+            }
+        });
+
+        return pResponse;
     }
 
 

@@ -9,27 +9,37 @@ var ReadFile;
      */
     function readUtf8File(filePath, stripBom) {
         if (stripBom === void 0) { stripBom = true; }
-        //try {
         var src = fs.readFileSync(filePath, "UTF-8");
         if (stripBom)
             src = src.replace(/^\uFEFF/, "");
         return src;
-        //} catch (err) {
-        //    return err;
-        //}
     }
     ReadFile.readUtf8File = readUtf8File;
     /** Read a UTF-8 file, strip BOM, and return the JSON.parse() result
      */
     function loadJsonFile(filePath) {
-        //try {
         var src = readUtf8File(filePath, true);
         return JSON.parse(src);
-        //} catch (err) {
-        //    return err;
-        //}
     }
     ReadFile.loadJsonFile = loadJsonFile;
+    function readFile(filePath, options) {
+        var resolve;
+        var reject;
+        var pResponse = new Promise(function (res, rej) {
+            resolve = res;
+            reject = rej;
+        });
+        fs.readFile(filePath, options, function (err, data) {
+            if (err) {
+                reject(err);
+            }
+            else {
+                resolve(data);
+            }
+        });
+        return pResponse;
+    }
+    ReadFile.readFile = readFile;
     /** Read a UTF-8 file, split it into lines at '[\r]\n' character sequences and return the resulting array of strings
      */
     function readLines(filePath) {

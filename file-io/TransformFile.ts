@@ -1,6 +1,5 @@
 ﻿import fs = require("fs");
 import Q = require("q");
-import log = require("fancy-log");
 import WriteFile = require("./WriteFile");
 
 /** Methods for transforming template files and splitting and joining lines
@@ -71,16 +70,17 @@ module TransformFile {
      * variable names to operations and operation parameters to replace them with
      * @return an array of transformed strings
      */
-    export function transformLines(fileName: string, lines: string[], startMarker: string, endMarker: string, transformations: { [name: string]: ReplaceVar }): string[] {
+    export function transformLines(fileName: string, lines: string[], startMarker: string, endMarker: string, transformations: { [name: string]: ReplaceVar }, log?: (...args: any[]) => void): string[] {
         startMarker = (startMarker == null ? "" : startMarker);
         endMarker = (endMarker == null ? "" : endMarker);
         var newLines: string[] = lines;
         var variableNames = Object.keys(transformations);
 
-        var maxLineNumDigits = lines.length.toString().length;
         // if we are only printing matching lines, we don't need array for resulting lines
         if (variableNames != null && variableNames.filter((k) => transformations[k].op === MatchOperation.PRINT_LINES).length === variableNames.length) {
-            log("Matching lines in: " + fileName);
+            if (log) {
+                log("Matching lines in: " + fileName);
+            }
         }
 
         var returnNonMatching: boolean = true;
@@ -105,7 +105,9 @@ module TransformFile {
                         case MatchOperation.DELETE_LINES:
                             break;
                         case MatchOperation.PRINT_LINES:
-                            log(i + ". " + lines[i]);
+                            if (log) {
+                                log(i + ". " + lines[i]);
+                            }
                             break;
                         case MatchOperation.REPLACE_LINES:
                             if (opParamIsAry) {
@@ -156,10 +158,10 @@ module TransformFile {
     }
 
 
-    export function transformFile(srcFile: string, startVarMark: string, endVarMark: string, transformations: { [id: string]: ReplaceVar }): string[] {
+    export function transformFile(srcFile: string, startVarMark: string, endVarMark: string, transformations: { [id: string]: ReplaceVar }, log?: (...args: any[]) => void): string[] {
         var fileSrc = fs.readFileSync(srcFile);
         var fileLines = splitFileLines(fileSrc.toString());
-        var lines = transformLines(srcFile, fileLines, startVarMark, endVarMark, transformations);
+        var lines = transformLines(srcFile, fileLines, startVarMark, endVarMark, transformations, log);
         return lines;
     }
 
@@ -167,11 +169,12 @@ module TransformFile {
     /** Transform a file's contents and return the original and resulting lines to a callback function
      */
     function transformFileToLines(matchOp: MatchOperation, srcFile: string, startVarMark: string, endVarMark: string,
-            variablesNamesToLines: { [id: string]: string | string[] | ReplaceVar }): { srcLines: string[]; transformedLines: string[]; } {
+        variablesNamesToLines: { [id: string]: string | string[] | ReplaceVar }, log?: (...args: any[]) => void
+    ): { srcLines: string[]; transformedLines: string[]; } {
 
         var buf = fs.readFileSync(srcFile);
         var srcLines = splitFileLines(buf.toString());
-        var transformedLines = transformLines(srcFile, srcLines, startVarMark, endVarMark, mapVarsToOps(matchOp, variablesNamesToLines));
+        var transformedLines = transformLines(srcFile, srcLines, startVarMark, endVarMark, mapVarsToOps(matchOp, variablesNamesToLines), log);
         return {
             srcLines,
             transformedLines
@@ -227,15 +230,20 @@ module TransformFile {
         postFileWritten?: (fileName: string, successCb: () => void, errorCb: (err: any) => void) => void,
         successMsg?: string, delimiterStart: string = "$", delimiterEnd: string = "$"
     ) {
-        var dfd = Q.defer<string>();
+        var resolve: (result: string) => void;
+        var reject: (error: any) => void;
+        var promise = new Promise((res, rej) => {
+            resolve = res;
+            reject = rej;
+        });
 
         transformFileToFileAsync(MatchOperation.REPLACE_MATCHING_PORTION, srcFile, dstFile, delimiterStart, delimiterEnd, variablesNamesToLines, function (msg) {
-            dfd.resolve((successMsg ? successMsg + ": " : "") + msg);
+            resolve((successMsg ? successMsg + ": " : "") + msg);
         }, function (err) {
-            dfd.reject(err);
+            reject(err);
         }, postFileWritten);
 
-        return dfd.promise;
+        return promise;
     }
 
 
